@@ -9,6 +9,8 @@
 </head>
 
 <div id="app">
+
+    <navbar></navbar>
     <!-- <span v-bind:title="vue">{{ message }}</span> -->
     <span v-if="hasMessage" :title="vue">{{ message }}</span>
     <!-- <button v-on:click="logMessage">Click Me!</button> -->
@@ -37,12 +39,9 @@
             {{ message.text }}
         </li>
     </ul>
-
 </div>
 
 <body>
-
-
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="app.js"></script>
 </body>
