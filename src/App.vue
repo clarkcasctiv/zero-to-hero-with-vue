@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <Navbar></Navbar>
         <Counter></Counter>
     </div>
 </template>

@@ -7349,6 +7349,31 @@ if (inBrowser) {
 /*  */
 
 exports.default = Vue;
+},{}],"node_modules\\vueify\\lib\\insert-css.js":[function(require,module,exports) {
+var inserted = exports.cache = {}
+
+function noop () {}
+
+exports.insert = function (css) {
+  if (inserted[css]) return noop
+  inserted[css] = true
+
+  var elem = document.createElement('style')
+  elem.setAttribute('type', 'text/css')
+
+  if ('textContent' in elem) {
+    elem.textContent = css
+  } else {
+    elem.styleSheet.cssText = css
+  }
+
+  document.getElementsByTagName('head')[0].appendChild(elem)
+  return function () {
+    document.getElementsByTagName('head')[0].removeChild(elem)
+    inserted[css] = false
+  }
+}
+
 },{}],"node_modules\\vue-hot-reload-api\\dist\\index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
@@ -7591,17 +7616,63 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],"src\\Counter.vue":[function(require,module,exports) {
+},{}],"src\\Header.vue":[function(require,module,exports) {
 ;(function () {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = {
+        name: 'Header'
+    };
+})();
+if (module.exports.__esModule) module.exports = module.exports.default;
+var __vue__options__ = typeof module.exports === "function" ? module.exports.options : module.exports;
+if (__vue__options__.functional) {
+    console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.");
+}
+__vue__options__.render = function render() {
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('h1', [_c('div', [_vm._t("title"), _vm._v(" "), _vm._t("sum")], 2)]);
+};
+__vue__options__.staticRenderFns = [];
+if (module.hot) {
+    (function () {
+        var hotAPI = require("vue-hot-reload-api");
+        hotAPI.install(require("vue"), true);
+        if (!hotAPI.compatible) return;
+        module.hot.accept();
+        if (!module.hot.data) {
+            hotAPI.createRecord("data-v-4cc08f73", __vue__options__);
+        } else {
+            hotAPI.rerender("data-v-4cc08f73", __vue__options__);
+        }
+    })();
+}
+},{"vue-hot-reload-api":"node_modules\\vue-hot-reload-api\\dist\\index.js","vue":"node_modules\\vue\\dist\\vue.runtime.esm.js"}],"src\\Counter.vue":[function(require,module,exports) {
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".red {\r\n  color: red;\r\n}\r\n\r\n.green {\r\n  color: green;\r\n}\r\n\r\n.grey {\r\n  color: grey;\r\n}");(function () {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+
+  var _Header = require('./Header.vue');
+
+  var _Header2 = _interopRequireDefault(_Header);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
   exports.default = {
+    components: { Header: _Header2.default },
     name: 'Counter',
     data: function data() {
-      return { sum: 0 };
+      return {
+        sum: 0,
+        sumClassName: 'grey'
+      };
     },
 
     methods: {
@@ -7610,6 +7681,14 @@ exports.reload = tryWrap(function (id, options) {
       },
       decrement: function decrement() {
         this.sum -= 1;
+      }
+    },
+
+    computed: {
+      sumClass: function sumClass() {
+        if (this.sum === 0) return this.sumClassName = 'grey';
+        if (this.sum > 0) return this.sumClassName = 'green';
+        if (this.sum < 0) return this.sumClassName = 'red';
       }
     }
   };
@@ -7620,7 +7699,7 @@ if (__vue__options__.functional) {
   console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.");
 }
 __vue__options__.render = function render() {
-  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', [_c('button', { on: { "click": this.increment } }, [_vm._v("+")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.sum))]), _vm._v(" "), _c('button', { on: { "click": this.decrement } }, [_vm._v("-")])]);
+  var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', [_c('Header', [_c('h2', { attrs: { "slot": "title" }, slot: "title" }, [_vm._v("The sum is:")]), _vm._v(" "), _c('h2', { class: _vm.sumClass, attrs: { "slot": "sum" }, slot: "sum" }, [_vm._v(_vm._s(_vm.sum))])]), _vm._v(" "), _c('div', [_c('button', { on: { "click": this.increment } }, [_vm._v("+")]), _vm._v(" "), _c('button', { on: { "click": this.decrement } }, [_vm._v("-")])])], 1);
 };
 __vue__options__.staticRenderFns = [];
 if (module.hot) {
@@ -7629,6 +7708,7 @@ if (module.hot) {
     hotAPI.install(require("vue"), true);
     if (!hotAPI.compatible) return;
     module.hot.accept();
+    module.hot.dispose(__vueify_style_dispose__);
     if (!module.hot.data) {
       hotAPI.createRecord("data-v-ce6e88f4", __vue__options__);
     } else {
@@ -7636,7 +7716,7 @@ if (module.hot) {
     }
   })();
 }
-},{"vue-hot-reload-api":"node_modules\\vue-hot-reload-api\\dist\\index.js","vue":"node_modules\\vue\\dist\\vue.runtime.esm.js"}],"src\\Navbar.vue":[function(require,module,exports) {
+},{"vueify/lib/insert-css":"node_modules\\vueify\\lib\\insert-css.js","./Header.vue":"src\\Header.vue","vue-hot-reload-api":"node_modules\\vue-hot-reload-api\\dist\\index.js","vue":"node_modules\\vue\\dist\\vue.runtime.esm.js"}],"src\\Navbar.vue":[function(require,module,exports) {
 ;(function () {
     'use strict';
 
@@ -7749,7 +7829,7 @@ if (module.hot) {
         if (!module.hot.data) {
             hotAPI.createRecord("data-v-595b2fde", __vue__options__);
         } else {
-            hotAPI.rerender("data-v-595b2fde", __vue__options__);
+            hotAPI.reload("data-v-595b2fde", __vue__options__);
         }
     })();
 }
@@ -7788,7 +7868,7 @@ if (__vue__options__.functional) {
     console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.");
 }
 __vue__options__.render = function render() {
-    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { attrs: { "id": "app" } }, [_c('Navbar'), _vm._v(" "), _c('Counter')], 1);
+    var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { attrs: { "id": "app" } }, [_c('Counter')], 1);
 };
 __vue__options__.staticRenderFns = [];
 if (module.hot) {
@@ -7800,7 +7880,7 @@ if (module.hot) {
         if (!module.hot.data) {
             hotAPI.createRecord("data-v-5c8c8e2b", __vue__options__);
         } else {
-            hotAPI.rerender("data-v-5c8c8e2b", __vue__options__);
+            hotAPI.reload("data-v-5c8c8e2b", __vue__options__);
         }
     })();
 }
@@ -7843,7 +7923,7 @@ function Module(config) {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent && typeof WebSocket !== 'undefined') {
-  var ws = new WebSocket('ws://localhost:54150/');
+  var ws = new WebSocket('ws://localhost:60960/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 
