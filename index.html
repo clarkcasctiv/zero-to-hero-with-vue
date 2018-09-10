@@ -8,49 +8,11 @@
     <title>Zero To Hero Vue</title>
 </head>
 
-<div id="app">
-
-    <navbar></navbar>
-    <!-- <span v-bind:title="vue">{{ message }}</span> -->
-    <span v-if="hasMessage" :title="vue">{{ message }}</span>
-    <!-- <button v-on:click="logMessage">Click Me!</button> -->
-    <button @click="logMessage">Click Me!</button>
-    <button @click="toggleMessage">Toggle Message!</button>
-
-    <form>
-        <input v-model="message" type="text">
-        <input v-model="hasMessage" type="checkbox">
-
-    </form>
-
-    <div>
-        <select v-model.lazy="selected">
-            <option disabled value="">What's your favorite coffee?</option>
-            <option>Cafe Latte</option>
-            <option>Cappuchino</option>
-            <option>Mocha Latte</option>
-        </select>
-
-        <span>Selected: {{ selected }}</span>
-    </div>
-
-    <ul>
-        <li v-for="message in messages">
-            {{ message.text }}
-        </li>
-    </ul>
-    <counter></counter>
-    <counter></counter>
-    <counter></counter>
-    <counter></counter>
-    <counter></counter>
-
-
-</div>
-
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="app.js"></script>
+    <div id="app">
+        <div>
 </body>
+
+<script src="app.js"></script>
 
 </html>
